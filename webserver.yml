@@ -1,0 +1,23 @@
+---
+- hosts: appgroup
+  remote_user: ansadm
+  
+
+  tasks:
+  - name: ensure apache is running and is at the latest version
+    yum: name=httpd state=latest
+  -name: write the apache config file
+    template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+    
+
+- hosts: appgroup
+  remote_user: ansadm
+
+
+  tasks: 
+  - name: check whether postgresql is at the latest version
+    yum: name=potgresql state=latest
+  -name: ensure that postgresql is runnig
+    service: name=postgresql state=started
+
+   
